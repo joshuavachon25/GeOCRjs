@@ -1,0 +1,25 @@
+{
+  "name": "geocrjs",
+  "productName": "GeOCR JS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuavachon25/GeOCRjs.git"
+  },
+  "author": "Joshua Vachon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuavachon25/GeOCRjs/issues"
+  },
+  "homepage": "https://github.com/joshuavachon25/GeOCRjs#readme",
+  "dependencies": {
+    "electron": "^26.2.4",
+    "toastify-js": "^1.12.0"
+  }
+}
