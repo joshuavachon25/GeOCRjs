@@ -36,7 +36,7 @@
 						color: '#bada55'
 					}
 				},
-				circle: false, // Turns off this drawing tool
+				circle: false,
 				rectangle: false,
 				marker: false,
 				polyline: false,
@@ -52,6 +52,7 @@
 
 		map.on(L.Draw.Event.CREATED, function (e) {
 			zones.addLayer(e.layer);
+			console.log(e.layer)
 		});
 
 	})
