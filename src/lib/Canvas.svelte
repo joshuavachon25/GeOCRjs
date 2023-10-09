@@ -53,6 +53,7 @@
 		map.on(L.Draw.Event.CREATED, function (e) {
 			zones.addLayer(e.layer);
 		});
+
 	})
 </script>
 
