@@ -1,0 +1,92 @@
+:root{
+  --bgColor:  #ebeae4;
+  --light: #cecccc;
+  --dark: #1d1818;
+  --accent: #35c3a2;
+  --black: #000;
+  --shadow: 5px 5px 6px rgba(0,0,0,0.2);
+}
+
+* {
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  background: var(--bgColor);
+}
+
+button{
+  border:none;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#app{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.openBtn{
+  padding: 30px 50px;
+  background: var(--accent);
+  color: var(--bgColor);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: 0.5s;
+}
+
+.openBtn:hover{
+  transform: scale(1.1);
+}
+
+#fab{
+  position: absolute;
+  top:15px;
+  left: 15px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+
+  align-items: center;
+  transition: 0.5s;
+  z-index:999;
+}
+
+#fab-main{
+  padding: 16px;
+  background-color: var(--dark);
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+#icon-menu{
+  fill: var(--light);
+}
+
+.fab-sub{
+  background-color: var(--accent);
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.spacer{
+  height: 10px;
+  width:15px;
+  background: var(--black);
+  display:block;
+
+}
+
+#map {
+  position: absolute;
+  top: 0; left:0; right:0;
+  bottom: 0;
+  width: 100%;
+}
