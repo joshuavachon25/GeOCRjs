@@ -4,9 +4,9 @@
 	import FAB from "./lib/FAB.svelte";
 	import {convertFileSrc} from "@tauri-apps/api/tauri";
 
-	let appContext = {
+	$: appContext = {
 		state: 0,
-		error: 0,
+		error: "",
 		archive: undefined
 	}
 
@@ -16,19 +16,21 @@
 
 	async function openFile(){
 		try {
-			const path = await open({
-				multiple:false,
+			let path = await open({
+				multiple: false,
 				title:"Ouvrir une image d'archive",
 				filters: [{
 					name: 'Image',
 					extensions: ['png', 'jpeg', 'gif', 'tiff', 'bmp']
 				}]
 			})
+
 			if (!path) {
-				appContext.error = "Aucun fichier n'a été choisi"
+				appContext.error = "Aucun fichier n'a été choisi "
 				return
 			}
-
+			// path = path.replaceAll("\\", "/")
+			// console.log(path)
 			appContext.archive = convertFileSrc(path)
 			setAppContextTo(1)
 		}catch(err){
@@ -45,7 +47,7 @@
 			<p class="openError">Erreur: {appContext.error}</p>
 		{/if}
 	{:else if appContext.state === 1}
-		<Canvas {appContext}/>
+			<Canvas {appContext}/>
 	{/if}
 
 </div>
