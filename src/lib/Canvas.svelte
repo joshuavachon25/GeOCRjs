@@ -1,11 +1,37 @@
 <script>
 	import * as L from "leaflet"
+	import {invoke} from '@tauri-apps/api/tauri'
 	import 'leaflet-draw'
 	import 'leaflet-draw/dist/leaflet.draw.css'
 	import 'leaflet/dist/leaflet.css'
 	import {onMount} from "svelte"
 
 	export let appContext
+
+    async function extractEverything(zones, img){
+        const urls = []
+        let poly = []
+        const layers = []
+
+        Object.keys(zones._layers).forEach((key) => {
+            layers.push(key)
+        })
+
+        layers.forEach((layer) => {
+            let points = []
+            zones._layers[layer]._latlngs[0].forEach((latLng) => {
+                points.push([latLng.lng , img.height - latLng.lat])
+            })
+            poly.push(points)
+        })
+
+        for(const p of poly){
+            let data = await invoke('extract_image', {inputPath: appContext.path, polygon: p})
+            urls.push(data)
+        }
+
+        console.log(urls)
+    }
 
 	onMount(() => {
 		const img = new Image()
@@ -23,6 +49,7 @@
 			map.fitBounds(bounds)
 			//map.addControl(L.control.zoom({ position: 'topright' }))
 			let zones = new L.FeatureGroup()
+            let poly = []
 			map.addLayer(zones)
 
 			L.Control.CustomZoom = L.Control.extend({
@@ -53,6 +80,27 @@
 				return new L.Control.CustomZoom(opts);
 			}
 			L.control.customZoom({ position: 'topright' }).addTo(map);
+
+            L.Control.ExtractImage = L.Control.extend({
+                onAdd: function(map) {
+                    let btn1 = L.DomUtil.create('button')
+                    btn1.innerText = "Extraire les images"
+                    btn1.classList.add('btnExtraire')
+                    btn1.addEventListener('click', () => extractEverything(zones, img))
+                    return btn1;
+                },
+
+                onRemove: function(map) {
+                    // Nothing to do here
+                }
+            })
+
+            L.control.extractImage = function(opts) {
+                return new L.Control.ExtractImage(opts);
+            }
+            L.control.extractImage({ position: 'bottomleft' }).addTo(map);
+
+
 			const options = {
 				position: 'bottomright',
 				draw: {
@@ -82,8 +130,6 @@
 
 			map.on(L.Draw.Event.CREATED, function (e) {
 				zones.addLayer(e.layer)
-				console.log(e.layer._latlngs[0])
-				console.log(zones._layers)
 			});
 		}
 		img.src = appContext.archive

@@ -7,7 +7,8 @@
 	$: appContext = {
 		state: 0,
 		error: "",
-		archive: undefined
+		archive: undefined,
+		path: undefined
 	}
 
 	function setAppContextTo(value){
@@ -29,6 +30,7 @@
 				appContext.error = "Aucun fichier n'a été choisi "
 				return
 			}
+			appContext.path = path
 			// path = path.replaceAll("\\", "/")
 			// console.log(path)
 			appContext.archive = convertFileSrc(path)

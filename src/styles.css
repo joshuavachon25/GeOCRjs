@@ -91,7 +91,7 @@ button{
   width: 100%;
 }
 
-.btnZoomIn, .btnZoomOut{
+.btnZoomIn, .btnZoomOut, .btnExtraire{
   @apply p-2 px-4 bg-gray-900 text-white rounded-md shadow-lg transition-all duration-300 hover:scale-105;
 }
 
@@ -105,4 +105,8 @@ button{
 
 .zoomWrap{
   @apply flex flex-col;
+}
+
+.btnExtraire{
+  @apply cursor-pointer z-50;
 }
